@@ -1,0 +1,843 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Positivity Support - Cornell Health</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #B31B1B 0%, #F7F7F7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 10px auto;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                align-items: center;
+                padding: 20px;
+            }
+            .container {
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            .question-title {
+                font-size: 18px !important;
+            }
+            .option-button {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            .bear-mascot {
+                width: 80px;
+            }
+            .celebration {
+                font-size: 18px !important;
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #B31B1B;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .bear-mascot {
+            width: 120px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .question-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .supportive-quote {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #B31B1B;
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-button {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px solid transparent;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .option-button:hover {
+            background: linear-gradient(135deg, #B31B1B 0%, #d42424 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(179, 27, 27, 0.3);
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #B31B1B;
+            box-shadow: 0 0 0 3px rgba(179, 27, 27, 0.1);
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #B31B1B 0%, #d42424 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(179, 27, 27, 0.3);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #B31B1B 0%, #d42424 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .back-button {
+            background: transparent;
+            color: #B31B1B;
+            border: 2px solid #B31B1B;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #B31B1B;
+            color: white;
+        }
+
+        .welcome-message {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .age-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .age-option {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .core-competencies {
+            background: #fff9f0;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #B31B1B;
+        }
+
+        .core-competencies h3 {
+            color: #B31B1B;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .competency-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .competency-list li {
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #B31B1B;
+            transition: all 0.3s ease;
+        }
+
+        .competency-list li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .resource-card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .food-illustration {
+            width: 200px;
+            height: auto;
+            margin: 15px auto;
+            display: block;
+        }
+        
+        @media (max-width: 480px) {
+            .age-selector {
+                flex-direction: column;
+            }
+            .age-option {
+                min-width: 100%;
+            }
+            .supportive-quote {
+                padding: 12px;
+                font-size: 14px;
+            }
+            .welcome-message p {
+                font-size: 14px;
+            }
+            .bear-pun {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .core-competencies {
+                padding: 15px;
+            }
+            .competency-list li {
+                padding: 8px;
+                font-size: 14px;
+            }
+            .resource-card {
+                padding: 12px;
+            }
+            .resource-card h3 {
+                font-size: 16px;
+            }
+            .resource-card p {
+                font-size: 14px;
+            }
+        }
+
+        .visit-counter {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(179, 27, 27, 0.1);
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            color: #666;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 480px) {
+            .visit-counter {
+                font-size: 10px;
+                padding: 4px 8px;
+                bottom: 5px;
+                right: 5px;
+            }
+        }
+
+        .celebration {
+            text-align: center;
+            color: #B31B1B;
+            font-size: 24px;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .bear-pun {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            color: #B31B1B;
+            font-weight: 500;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>🐻 Body Positivity Journey</h1>
+            <p>Cornell Health - Supporting Your Wellness</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div class="question-section active" id="welcome">
+            <img src="https://www.clipartmax.com/png/small/324-3249539_c-descript-cornell-big-red-bear-mascot-cornell-university-mascot.png" alt="Cornell Bear" class="bear-mascot">
+            <div class="welcome-message">
+                <h2 class="question-title">Welcome, You Amazing Human! 🎉</h2>
+                <div class="celebration">You've taken the first step - that's BEAR-y brave of you!</div>
+                <p style="margin: 20px 0;">Hey friend, we're so glad you're here. Just by clicking on this page, you're already your own hero. Remember, it's okay if you don't fit in perfectly - no one does, and that's what makes us beautifully unique. Everyone needs support to grow, and sometimes growth feels uncomfortable, but that's where the magic happens.</p>
+                <div class="bear-pun">Life is a journey, not a destination, and your body is the amazing vehicle that carries you through it all. Be kind to yourself - show yourself the same love you give to others. 💕</div>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="startJourney()">Begin Your Journey with Big Red Bear 🐻</button>
+            </div>
+        </div>
+
+        <!-- Question 1: Gender Identity -->
+        <div class="question-section" id="q1">
+            <div class="supportive-quote">
+                "Your identity is valid and beautiful, exactly as you are. At Cornell, we celebrate every shade of the Big Red family!" 🌈
+            </div>
+            <h2 class="question-title">How do you identify?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('gender', 'male', 2)">Male</button>
+                <button class="option-button" onclick="saveAnswer('gender', 'female', 2)">Female</button>
+                <button class="option-button" onclick="saveAnswer('gender', 'lgbtq+', 2)">LGBTQ+</button>
+                <button class="option-button" onclick="saveAnswer('gender', 'prefer_not_say', 2)">Prefer not to say</button>
+            </div>
+        </div>
+
+        <!-- Question 2: Age -->
+        <div class="question-section" id="q2">
+            <div class="supportive-quote">
+                "Every age brings its own wisdom. You're exactly where you need to be in your journey!" 🌟
+            </div>
+            <h2 class="question-title">What is your age?</h2>
+            <div class="options age-selector">
+                <button class="option-button age-option" onclick="saveAnswer('age', '17-18', 3)">17-18</button>
+                <button class="option-button age-option" onclick="saveAnswer('age', '19-20', 3)">19-20</button>
+                <button class="option-button age-option" onclick="saveAnswer('age', '21-22', 3)">21-22</button>
+                <button class="option-button age-option" onclick="saveAnswer('age', '23-24', 3)">23-24</button>
+                <button class="option-button age-option" onclick="saveAnswer('age', '25+', 3)">25+</button>
+            </div>
+            <button class="back-button" onclick="goBack(1)">Back</button>
+        </div>
+
+        <!-- Question 3: Cornell Affiliation -->
+        <div class="question-section" id="q3">
+            <div class="supportive-quote">
+                "Whether you're part of the Cornell family or joining us from afar, you belong here!" 🏛️
+            </div>
+            <h2 class="question-title">Are you affiliated with Cornell?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('cornell', 'yes', 4)">Yes - Go Big Red! 🐻</button>
+                <button class="option-button" onclick="saveAnswer('cornell', 'no', 4)">No - But still welcome!</button>
+            </div>
+            <button class="back-button" onclick="goBack(2)">Back</button>
+        </div>
+
+        <!-- Question 4: General Feeling -->
+        <div class="question-section" id="q4">
+            <div class="supportive-quote">
+                "All feelings are valid. You're brave for checking in with yourself - that's un-BEAR-ably awesome!" 🐻
+            </div>
+            <h2 class="question-title">How are you feeling in general?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('feeling', 'happy', 5)">😊 Happy</button>
+                <button class="option-button" onclick="saveAnswer('feeling', 'sad', 5)">😢 Sad</button>
+                <button class="option-button" onclick="saveAnswer('feeling', 'annoyed', 5)">😤 Annoyed</button>
+                <button class="option-button" onclick="saveAnswer('feeling', 'neutral', 5)">😐 Neutral</button>
+                <button class="option-button" onclick="showOtherInput()">Other</button>
+            </div>
+            <div id="otherFeelingInput" style="display: none; margin-top: 20px;">
+                <input type="text" class="text-input" id="otherFeeling" placeholder="Please describe how you're feeling...">
+                <button class="submit-button" onclick="saveOtherFeeling()">Continue</button>
+            </div>
+            <button class="back-button" onclick="goBack(3)">Back</button>
+        </div>
+
+        <!-- Question 5: Lonely -->
+        <div class="question-section" id="q5">
+            <div class="supportive-quote">
+                "Connection is just a step away. The Cornell community is here for you!" 💕
+            </div>
+            <h2 class="question-title">Are you feeling lonely?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('lonely', 'yes', 6)">Yes</button>
+                <button class="option-button" onclick="saveAnswer('lonely', 'no', 6)">No</button>
+            </div>
+            <button class="back-button" onclick="goBack(4)">Back</button>
+        </div>
+
+        <!-- Question 6: Eaten Today -->
+        <div class="question-section" id="q6">
+            <div class="supportive-quote">
+                "Nourishing your body is an act of self-love. Every meal is a chance to care for yourself!" 🍎
+            </div>
+            <h2 class="question-title">Have you eaten today?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('eaten', 'yes', 7)">Yes</button>
+                <button class="option-button" onclick="saveAnswer('eaten', 'no', 7)">No</button>
+            </div>
+            <button class="back-button" onclick="goBack(5)">Back</button>
+        </div>
+
+        <!-- Question 7: Think About Food -->
+        <div class="question-section" id="q7">
+            <div class="supportive-quote">
+                "Your thoughts about food are important. Let's explore a healthier relationship together!" 🌱
+            </div>
+            <h2 class="question-title">Do you think about food all the time?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('food_thoughts', 'yes', 8)">Yes</button>
+                <button class="option-button" onclick="saveAnswer('food_thoughts', 'no', 8)">No</button>
+            </div>
+            <button class="back-button" onclick="goBack(6)">Back</button>
+        </div>
+
+        <!-- Question 8: Relationship with Food -->
+        <div class="question-section" id="q8">
+            <div class="supportive-quote">
+                "Food is meant to nourish and bring joy. We're here to help you find that balance!" 🥗
+            </div>
+            <h2 class="question-title">How is your relationship with food?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('food_relationship', 'good', 9)">Good</button>
+                <button class="option-button" onclick="saveAnswer('food_relationship', 'challenging', 9)">Challenging</button>
+            </div>
+            <button class="back-button" onclick="goBack(7)">Back</button>
+        </div>
+
+        <!-- Question 9: Eating Regularly -->
+        <div class="question-section" id="q9">
+            <div class="supportive-quote">
+                "Regular nourishment helps you thrive. Let's work on making eating easier and more joyful!" 🌟
+            </div>
+            <h2 class="question-title">Is it difficult for you to eat regularly?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('eating_difficulty', 'yes', 10)">Yes</button>
+                <button class="option-button" onclick="saveAnswer('eating_difficulty', 'no', 10)">No</button>
+            </div>
+            <button class="back-button" onclick="goBack(8)">Back</button>
+        </div>
+
+        <!-- Question 10: Body Feelings -->
+        <div class="question-section" id="q10">
+            <div class="supportive-quote">
+                "Your body is amazing - it carries you through every adventure. You are BEAR-utiful just as you are!" 🐻
+            </div>
+            <h2 class="question-title">How do you feel about your body?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('body_feelings', 'perfect', 11)">I appreciate my body</button>
+                <button class="option-button" onclick="saveAnswer('body_feelings', 'struggling', 11)">I'm struggling with body image</button>
+                <button class="option-button" onclick="saveAnswer('body_feelings', 'never_thought', 11)">I haven't thought much about it</button>
+            </div>
+            <button class="back-button" onclick="goBack(9)">Back</button>
+        </div>
+
+        <!-- Question 11: Body Dictates Actions -->
+        <div class="question-section" id="q11">
+            <div class="supportive-quote">
+                "You deserve to show up fully in your life, regardless of how you look. Your presence matters!" ✨
+            </div>
+            <h2 class="question-title">Does your body or appearance affect how you show up for things?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('body_influence', 'most_time', 12)">Most of the time</button>
+                <button class="option-button" onclick="saveAnswer('body_influence', 'always', 12)">Always</button>
+                <button class="option-button" onclick="saveAnswer('body_influence', 'no', 12)">No</button>
+                <button class="option-button" onclick="saveAnswer('body_influence', 'never_thought', 12)">Never thought about it</button>
+            </div>
+            <button class="back-button" onclick="goBack(10)">Back</button>
+        </div>
+
+        <!-- Question 12: Discussed with Others -->
+        <div class="question-section" id="q12">
+            <div class="supportive-quote">
+                "Sharing your journey takes courage. Whether you've talked about it or not, support is here!" 💝
+            </div>
+            <h2 class="question-title">Have you discussed this with family or friends?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('discussed', 'yes', 13)">Yes</button>
+                <button class="option-button" onclick="saveAnswer('discussed', 'no', 13)">No</button>
+            </div>
+            <button class="back-button" onclick="goBack(11)">Back</button>
+        </div>
+
+        <!-- Question 13: Importance of Appearance -->
+        <div class="question-section" id="q13">
+            <div class="supportive-quote">
+                "Your worth isn't measured by appearance. You're valuable because you're YOU!" 🌈
+            </div>
+            <h2 class="question-title">How important do you think looking a certain way is?</h2>
+            <div class="options">
+                <button class="option-button" onclick="saveAnswer('appearance_importance', 'very', 'results')">Very important</button>
+                <button class="option-button" onclick="saveAnswer('appearance_importance', 'somewhat', 'results')">Somewhat important</button>
+                <button class="option-button" onclick="saveAnswer('appearance_importance', 'not_much', 'results')">Not very important</button>
+            </div>
+            <button class="back-button" onclick="goBack(12)">Back</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="question-section" id="results">
+            <img src="https://www.clipartmax.com/png/small/324-3249539_c-descript-cornell-big-red-bear-mascot-cornell-university-mascot.png" alt="Cornell Bear" class="bear-mascot">
+            <h2 class="question-title">Your Personalized Wellness Path 🌟</h2>
+            <div class="bear-pun">You're BEAR-y special and we're proud of you for completing this journey!</div>
+            <div id="resultsContent"></div>
+            <button class="option-button" onclick="restart()">Start Another Journey 🐻</button>
+        </div>
+    </div>
+
+    <div class="visit-counter">
+        Visits: <span id="visitCount">0</span> | Interactions: <span id="interactionCount">0</span>
+    </div>
+
+    <script>
+        let userResponses = {};
+        const totalQuestions = 13;
+        let interactionCount = 0;
+
+        // Initialize tracking
+        function initTracking() {
+            let visits = localStorage.getItem('bodyPositivityVisits') || 0;
+            visits = parseInt(visits) + 1;
+            localStorage.setItem('bodyPositivityVisits', visits);
+            document.getElementById('visitCount').textContent = visits;
+            
+            // Track page load
+            trackInteraction('page_load');
+        }
+
+        function trackInteraction(action) {
+            interactionCount++;
+            document.getElementById('interactionCount').textContent = interactionCount;
+            
+            // Store interaction data
+            const interactions = JSON.parse(localStorage.getItem('interactions') || '[]');
+            interactions.push({
+                action: action,
+                timestamp: new Date().toISOString(),
+                responses: userResponses
+            });
+            localStorage.setItem('interactions', JSON.stringify(interactions));
+        }
+
+        function updateProgress(questionNumber) {
+            const percentage = ((questionNumber - 1) / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+
+        function startJourney() {
+            trackInteraction('journey_started');
+            showQuestion(1);
+        }
+
+        function showQuestion(questionNumber) {
+            // Hide all sections
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show specific question
+            if (questionNumber === 'results') {
+                document.getElementById('results').classList.add('active');
+                updateProgress(totalQuestions + 1);
+            } else {
+                document.getElementById('q' + questionNumber).classList.add('active');
+                updateProgress(questionNumber);
+            }
+            
+            trackInteraction('question_' + questionNumber + '_viewed');
+        }
+
+        function saveAnswer(key, value, nextQuestion) {
+            userResponses[key] = value;
+            trackInteraction('answered_' + key + '_with_' + value);
+            
+            if (nextQuestion === 'results') {
+                showResults();
+            } else {
+                showQuestion(nextQuestion);
+            }
+        }
+
+        function showOtherInput() {
+            document.getElementById('otherFeelingInput').style.display = 'block';
+        }
+
+        function saveOtherFeeling() {
+            const otherValue = document.getElementById('otherFeeling').value;
+            if (otherValue.trim()) {
+                userResponses['feeling'] = otherValue;
+                trackInteraction('custom_feeling_entered');
+                showQuestion(5);
+            }
+        }
+
+        function goBack(previousQuestion) {
+            trackInteraction('went_back_to_q' + previousQuestion);
+            showQuestion(previousQuestion);
+        }
+
+        function showResults() {
+            showQuestion('results');
+            generatePersonalizedResources();
+        }
+
+        function generatePersonalizedResources() {
+            let html = '<div style="line-height: 1.8; color: #666;">';
+            
+            // Personalized greeting based on mood
+            if (userResponses.feeling === 'sad') {
+                html += '<p style="font-size: 18px; color: #B31B1B; margin-bottom: 20px; text-align: center;"><strong>We hear you, and we\'re here for you.</strong> It takes courage to acknowledge how you\'re feeling. You\'ve taken an important step today. 💕</p>';
+            } else if (userResponses.feeling === 'happy') {
+                html += '<p style="font-size: 18px; color: #B31B1B; margin-bottom: 20px; text-align: center;"><strong>We\'re so glad you\'re in a good place!</strong> Let\'s build on that positive energy together. 🌟</p>';
+            } else {
+                html += '<p style="font-size: 18px; color: #B31B1B; margin-bottom: 20px; text-align: center;"><strong>Thank you for being here.</strong> Every step forward is a victory worth celebrating! 🎉</p>';
+            }
+
+            // Core Competencies Highlight
+            html += '<div class="core-competencies">';
+            html += '<h3>🌟 The Five Core Competencies of Body Positivity 🌟</h3>';
+            html += '<ul class="competency-list">';
+            html += '<li><strong>1. Reclaiming Health</strong> - Health at every size, focusing on wellbeing not weight</li>';
+            html += '<li><strong>2. Practicing Intuitive Self-Care</strong> - Listening to your body\'s needs with compassion</li>';
+            html += '<li><strong>3. Cultivating Self-Love</strong> - Embracing yourself with kindness and acceptance</li>';
+            html += '<li><strong>4. Declaring Your Own Authentic Beauty</strong> - Defining beauty on your own terms</li>';
+            html += '<li><strong>5. Building Community</strong> - Finding support and connection with others</li>';
+            html += '</ul>';
+            html += '</div>';
+
+            // Loneliness support
+            if (userResponses.lonely === 'yes') {
+                html += '<div class="resource-card" style="background: #fff0f0; border-color: #B31B1B;">';
+                html += '<h3 style="color: #B31B1B;">🤝 You\'re Not Alone - Connect with Cornell Community!</h3>';
+                html += '<p>Feeling lonely is completely normal, and there are so many ways to connect:</p>';
+                html += '<p><strong>📅 <a href="https://cornell.campusgroups.com/events" style="color: #B31B1B;">Cornell Campus Events</a></strong> - Discover events happening across campus and join groups that interest you!</p>';
+                html += '<p>There are hundreds of student organizations waiting to welcome you. You belong here! 🐻</p>';
+                html += '</div>';
+            }
+
+            // Cornell-specific resources
+            if (userResponses.cornell === 'yes') {
+                html += '<div class="resource-card">';
+                html += '<h3 style="color: #B31B1B;">🏛️ Cornell Resources Just for You:</h3>';
+                
+                // Nutrition support for food-related concerns
+                if (userResponses.food_relationship === 'challenging' || userResponses.eating_difficulty === 'yes') {
+                    html += '<p><strong>🍎 Nutrition Support:</strong> Cornell provides nutrition consultations for students on insurance for just <strong>$10/visit</strong>!</p>';
+                    html += '<p>📍 <a href="https://health.cornell.edu/services/nutrition-services" style="color: #B31B1B;">Cornell Nutrition Services</a></p>';
+                }
+                
+                // Mental health support
+                if (userResponses.feeling === 'sad' || userResponses.body_feelings === 'struggling') {
+                    html += '<p><strong>💚 Mental Health Support:</strong> Counseling services available for <strong>$10/visit</strong> with insurance.</p>';
+                    html += '<p>📞 Call Cornell Health at <strong>607-255-5155</strong> during business hours to schedule an appointment.</p>';
+                    html += '<p>📍 <a href="https://health.cornell.edu/services/counseling-psychiatry" style="color: #B31B1B;">Cornell Counseling Services</a></p>';
+                }
+                
+                html += '</div>';
+            }
+
+            // Body Positive Resources for Everyone
+            html += '<div class="resource-card" style="background: #f0f9ff;">';
+            html += '<h3 style="color: #B31B1B;">📚 Body Positive Resources & Programs:</h3>';
+            html += '<p><strong>🌟 <a href="https://health.cornell.edu/initiatives/campus-initiatives/body-positive-cornell" style="color: #B31B1B;">Body Positive Cornell</a></strong> - Explore all our body positivity resources!</p>';
+            html += '<p><strong>📖 <a href="https://thebodypositive.org/fundamentals/" style="color: #B31B1B;">Be Body Positive™ Curriculum</a></strong> - Learn the foundational principles</p>';
+            html += '<p><strong>✍️ <a href="https://cornell.ca1.qualtrics.com/jfe/form/SV_8waQwrC2CU8iruS" style="color: #B31B1B;">Sign Up for Body Positive Fundamentals</a></strong> - Join our transformative program!</p>';
+            html += '</div>';
+
+            // Personalized messages based on specific concerns
+            if (userResponses.body_influence === 'always' || userResponses.body_influence === 'most_time') {
+                html += '<div class="resource-card" style="background: #fff9f0;">';
+                html += '<h3 style="color: #B31B1B;">💫 Breaking Free from Body Image Constraints</h3>';
+                html += '<p>You deserve to live fully, regardless of how you look. Your body is not an ornament to be admired - it\'s the vehicle for your amazing life! Consider:</p>';
+                html += '<ul style="list-style: none; padding: 0;">';
+                html += '<li>🌱 Practice one activity this week that you\'ve avoided due to body concerns</li>';
+                html += '<li>🎨 Focus on what your body can DO rather than how it looks</li>';
+                html += '<li>💪 Celebrate your body\'s strength and resilience</li>';
+                html += '</ul>';
+                html += '</div>';
+            }
+
+            if (userResponses.eaten === 'no') {
+                html += '<div class="resource-card" style="background: #fff0f0; border: 2px solid #B31B1B;">';
+                html += '<h3 style="color: #B31B1B;">🍽️ Gentle Reminder: Nourishment Matters</h3>';
+                html += '<p>Your body needs fuel to support you through your day. Even a small snack can make a difference. Cornell dining halls offer diverse options to meet all needs. Remember: eating is self-care! 🥗</p>';
+                html += '</div>';
+            }
+
+            if (userResponses.food_thoughts === 'yes') {
+                html += '<div class="resource-card">';
+                html += '<h3 style="color: #B31B1B;">🧠 Finding Food Freedom</h3>';
+                html += '<p>Constant thoughts about food can be exhausting. You\'re not alone in this struggle. Intuitive eating can help you find peace with food. The Body Positive program teaches how to:</p>';
+                html += '<ul style="list-style: none; padding: 0;">';
+                html += '<li>✨ Trust your body\'s hunger and fullness cues</li>';
+                html += '<li>🎯 Eat for satisfaction and nourishment</li>';
+                html += '<li>💚 Release guilt around food choices</li>';
+                html += '</ul>';
+                html += '</div>';
+            }
+
+            // Gender-specific encouragement
+            if (userResponses.gender === 'lgbtq+') {
+                html += '<div class="resource-card" style="background: linear-gradient(135deg, #fff0f0, #f0f0ff);">';
+                html += '<h3 style="color: #B31B1B;">🏳️‍🌈 LGBTQ+ Affirming Support</h3>';
+                html += '<p>Your identity is celebrated here! Body image can be especially complex in LGBTQ+ communities, and we understand. You deserve support that honors all aspects of who you are.</p>';
+                html += '</div>';
+            }
+
+            // Support system encouragement
+            if (userResponses.discussed === 'no') {
+                html += '<div class="resource-card">';
+                html += '<h3 style="color: #B31B1B;">💬 Opening Up Can Help</h3>';
+                html += '<p>Sharing your journey with trusted friends or family can provide invaluable support. If you\'re not ready for that, Cornell\'s counseling services offer a safe, confidential space to explore these feelings. You don\'t have to do this alone! 🤗</p>';
+                html += '</div>';
+            }
+
+            // Final encouragement
+            html += '<div style="background: linear-gradient(135deg, #fff5f5, #ffe0e0); padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center;">';
+            html += '<p style="color: #B31B1B; font-size: 20px; font-weight: 600; margin-bottom: 15px;">Remember: You Are Enough, Just As You Are 🐻</p>';
+            html += '<p style="color: #666; line-height: 1.8;">Every body is a good body. Every day is a new opportunity to practice self-compassion. You\'ve shown incredible strength by seeking support - that\'s BEAR-y brave! Keep going, one paw-step at a time.</p>';
+            html += '<p style="margin-top: 15px; font-style: italic;">Life isn\'t about waiting for the storm to pass...<br>It\'s about learning to dance in the rain! 🌈</p>';
+            html += '</div>';
+            
+            html += '</div>';
+            
+            document.getElementById('resultsContent').innerHTML = html;
+        }
+
+        function restart() {
+            trackInteraction('restarted_journey');
+            userResponses = {};
+            interactionCount = 0;
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('welcome').classList.add('active');
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('otherFeeling').value = '';
+            document.getElementById('otherFeelingInput').style.display = 'none';
+        }
+
+        // Initialize when page loads
+        window.onload = function() {
+            initTracking();
+        };
+    </script>
+</body>
+</html>
